@@ -4,12 +4,12 @@ import copy
 
 numA = 3
 numV = 2
-numB = 2
+numB = 1
 numQ = numA
 
 NONE = 0
 
-outFile = "out.pla"
+outFile = "out"
 outF = None
 def fprint(s):
     global outF
@@ -121,7 +121,7 @@ class System():
                 if not any(state.member[a][Q] and state.votes[a][c][v] for a in range(numA)):
                     continue
             for d in range(c+1, b):
-                if any(state.member[a][Q] and self.didNotVoteAt(state, a, d) for a in range(numA)):
+                if any(state.member[a][Q] and not self.didNotVoteAt(state, a, d) for a in range(numA)):
                     continue
             condOr = True
         if not condOr:
@@ -186,14 +186,13 @@ class System():
 #             if count > 1000:
 #                 assert(0)
         
-        self.print_R_espresso()
         print("#R = %d" % len(self.R))
         
     
     def print_R_espresso(self):
         global outF, outFile
-        outFile = "out_%dA_%dB_%dV.pla" % (numA, numB, numV)
-        outF = open(outFile, 'w')
+        outFile = "out_%dA_%dB_%dV" % (numA, numB, numV)
+        outF = open(outFile+".pla", 'w')
         
         fprint("# voting: %d acceptors, %d values, %d ballots" % (numA, numV, numB))
         fprint(".i %d" % (numA*(numB+1) + numA*numB*numV))
@@ -205,11 +204,14 @@ class System():
             fprint(state.str_espresso() + " 1")
         fprint(".e")
         fprint("")
+        print("Now run espresso with the following command:")
+        print("./espresso/espresso.linux -o eqntott %s.pla > %s.txt" % (outFile, outFile))
             
 
 def main():
     s = System()
     print("OK")
+    s.print_R_espresso()
 
 
 if __name__ == "__main__":
