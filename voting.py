@@ -122,6 +122,8 @@ class System():
                     continue
             for d in range(c+1, b):
                 if any(state.member[a][Q] and not self.didNotVoteAt(state, a, d) for a in range(numA)):
+#                     print("bug here")
+#                     assert(0)
                     continue
             condOr = True
         if not condOr:
@@ -188,7 +190,6 @@ class System():
         
         print("#R = %d" % len(self.R))
         
-    
     def print_R_espresso(self):
         global outF, outFile
         outFile = "out_%dA_%dB_%dV" % (numA, numB, numV)
