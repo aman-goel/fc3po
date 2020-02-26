@@ -1,0 +1,53 @@
+# voting: 3 acceptors, 2 values, 2 ballots
+notR = 
+	(!maxBal(A0,B0) & !maxBal(A0,B1) & !maxBal(A1,B0) & !maxBal(A1,B1) & votes(A2,B0,V0)) | 
+	(!maxBal(A0,B0) & !maxBal(A0,B1) & !maxBal(A1,B0) & !maxBal(A1,B1) & votes(A2,B0,V1)) | 
+	(!maxBal(A0,B0) & !maxBal(A0,B1) & !maxBal(A2,B0) & !maxBal(A2,B1) & votes(A1,B0,V0)) | 
+	(!maxBal(A0,B0) & !maxBal(A0,B1) & !maxBal(A2,B0) & !maxBal(A2,B1) & votes(A1,B0,V1)) | 
+	(!maxBal(A1,B0) & !maxBal(A1,B1) & !maxBal(A2,B0) & !maxBal(A2,B1) & votes(A0,B0,V0)) | 
+	(!maxBal(A1,B0) & !maxBal(A1,B1) & !maxBal(A2,B0) & !maxBal(A2,B1) & votes(A0,B0,V1)) | 
+
+	(!maxBal(A0,B0) & !maxBal(A0,B1) & votes(A0,B0,V0)) | 
+	(!maxBal(A0,B0) & !maxBal(A0,B1) & votes(A0,B0,V1)) | 
+	(!maxBal(A1,B0) & !maxBal(A1,B1) & votes(A1,B0,V0)) | 
+	(!maxBal(A1,B0) & !maxBal(A1,B1) & votes(A1,B0,V1)) | 
+	(!maxBal(A2,B0) & !maxBal(A2,B1) & votes(A2,B0,V0)) | 
+	(!maxBal(A2,B0) & !maxBal(A2,B1) & votes(A2,B0,V1)) | 
+
+	(!maxBal(A0,B1) & !maxBal(A1,B1) & votes(A2,B1,V0)) | 
+	(!maxBal(A0,B1) & !maxBal(A1,B1) & votes(A2,B1,V1)) | 
+	(!maxBal(A0,B1) & !maxBal(A2,B1) & votes(A1,B1,V0)) | 
+	(!maxBal(A0,B1) & !maxBal(A2,B1) & votes(A1,B1,V1)) | 
+	(!maxBal(A1,B1) & !maxBal(A2,B1) & votes(A0,B1,V0)) | 
+	(!maxBal(A1,B1) & !maxBal(A2,B1) & votes(A0,B1,V1)) | 
+
+	(maxBal(A0,B0) & maxBal(A0,B1)) | 
+	(maxBal(A1,B0) & maxBal(A1,B1)) | 
+	(maxBal(A2,B0) & maxBal(A2,B1)) | 
+
+	(!maxBal(A0,B1) & votes(A0,B1,V0)) |
+	(!maxBal(A0,B1) & votes(A0,B1,V1)) | 
+	(!maxBal(A1,B1) & votes(A1,B1,V0)) | 
+	(!maxBal(A1,B1) & votes(A1,B1,V1)) | 
+	(!maxBal(A2,B1) & votes(A2,B1,V0)) | 
+	(!maxBal(A2,B1) & votes(A2,B1,V1)) | 
+	
+	(votes(A0,B1,V0) & votes(A0,B1,V1)) | 
+	(votes(A0,B1,V0) & votes(A1,B1,V1)) | 
+	(votes(A0,B1,V1) & votes(A1,B1,V0)) | 
+	(votes(A2,B0,V0) & votes(A2,B0,V1)) | 
+	(votes(A0,B0,V0) & votes(A2,B0,V1)) | 
+	(votes(A0,B0,V1) & votes(A2,B0,V0)) | 
+	(votes(A1,B1,V0) & votes(A1,B1,V1)) | 
+	(votes(A0,B0,V0) & votes(A0,B0,V1)) | 
+	(votes(A1,B0,V0) & votes(A2,B0,V1)) | 
+	(votes(A1,B0,V1) & votes(A2,B0,V0)) | 
+	(votes(A0,B0,V0) & votes(A1,B0,V1)) | 
+	(votes(A0,B0,V1) & votes(A1,B0,V0)) | 
+	(votes(A1,B0,V0) & votes(A1,B0,V1)) | 
+	(votes(A0,B1,V0) & votes(A2,B1,V1)) | 
+	(votes(A0,B1,V1) & votes(A2,B1,V0)) | 
+	(votes(A1,B1,V0) & votes(A2,B1,V1)) | 
+	(votes(A1,B1,V1) & votes(A2,B1,V0)) | 
+	(votes(A2,B1,V0) & votes(A2,B1,V1))
+;
