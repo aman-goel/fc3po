@@ -1,65 +1,35 @@
 # voting: 3 acceptors, 2 values, 2 ballots
-# encoding: maxBal(A0)=-1 maxBal(A0)=0 maxBal(A0)=1 maxBal(A1)=-1 maxBal(A1)=0 maxBal(A1)=1 maxBal(A2)=-1 maxBal(A2)=0 maxBal(A2)=1  votes(A0,0,V0) votes(A0,0,V1) votes(A0,1,V0) votes(A0,1,V1)  votes(A1,0,V0) votes(A1,0,V1) votes(A1,1,V0) votes(A1,1,V1)  votes(A2,0,V0) votes(A2,0,V1) votes(A2,1,V0) votes(A2,1,V1)  
+notR = (!maxBal(A1)=0&!maxBal(A1)=1&maxBal(A2)=-1&votes(A0,0,V0)) | (
+    !maxBal(A1)=0&!maxBal(A1)=1&maxBal(A2)=-1&votes(A0,0,V1)) | (
+    !maxBal(A0)=0&!maxBal(A0)=1&maxBal(A2)=-1&votes(A1,0,V0)) | (
+    !maxBal(A0)=0&!maxBal(A0)=1&maxBal(A2)=-1&votes(A1,0,V1)) | (
+    !maxBal(A0)=0&!maxBal(A0)=1&maxBal(A1)=-1&votes(A2,0,V0)) | (
+    !maxBal(A0)=0&!maxBal(A0)=1&maxBal(A1)=-1&votes(A2,0,V1)) | (
+    !maxBal(A1)=1&!maxBal(A2)=1&votes(A0,1,V0)) | (!maxBal(A1)=1
+    &!maxBal(A2)=1&votes(A0,1,V1)) | (!maxBal(A0)=1&!maxBal(A2)=1
+    &votes(A1,1,V0)) | (!maxBal(A0)=1&!maxBal(A2)=1&votes(A1,1,V1)) | (
+    !maxBal(A0)=1&!maxBal(A1)=1&votes(A2,1,V0)) | (!maxBal(A0)=1
+    &!maxBal(A1)=1&votes(A2,1,V1)) | (maxBal(A2)=-1&votes(A2,0,V0)) | (
+    maxBal(A2)=-1&votes(A2,0,V1)) | (maxBal(A1)=-1&votes(A1,0,V0)) | (
+    maxBal(A0)=-1&votes(A0,0,V0)) | (maxBal(A1)=-1&votes(A1,0,V1)) | (
+    maxBal(A0)=-1&votes(A0,0,V1)) | (!maxBal(A2)=1&votes(A2,1,V0)) | (
+    !maxBal(A1)=1&votes(A1,1,V0)) | (!maxBal(A0)=1&votes(A0,1,V0)) | (
+    !maxBal(A2)=1&votes(A2,1,V1)) | (!maxBal(A1)=1&votes(A1,1,V1)) | (
+    !maxBal(A0)=1&votes(A0,1,V1)) | (!maxBal(A1)=-1&!maxBal(A1)=0
+    &!maxBal(A1)=1) | (!maxBal(A0)=-1&!maxBal(A0)=0&!maxBal(A0)=1) | (
+    !maxBal(A2)=-1&!maxBal(A2)=0&!maxBal(A2)=1) | (maxBal(A2)=-1
+    &maxBal(A2)=1) | (maxBal(A1)=0&maxBal(A1)=1) | (votes(A0,1,V0)
+    &votes(A0,1,V1)) | (votes(A0,1,V0)&votes(A1,1,V1)) | (votes(A0,1,V1)
+    &votes(A1,1,V0)) | (maxBal(A0)=0&maxBal(A0)=1) | (maxBal(A1)=-1
+    &maxBal(A1)=1) | (votes(A1,1,V0)&votes(A1,1,V1)) | (votes(A0,0,V0)
+    &votes(A0,0,V1)) | (maxBal(A1)=-1&maxBal(A1)=0) | (votes(A0,0,V0)
+    &votes(A2,0,V1)) | (votes(A0,0,V1)&votes(A2,0,V0)) | (votes(A2,0,V0)
+    &votes(A2,0,V1)) | (maxBal(A0)=-1&maxBal(A0)=0) | (votes(A0,0,V0)
+    &votes(A1,0,V1)) | (votes(A0,0,V1)&votes(A1,0,V0)) | (votes(A1,0,V0)
+    &votes(A2,0,V1)) | (votes(A1,0,V1)&votes(A2,0,V0)) | (maxBal(A2)=0
+    &maxBal(A2)=1) | (votes(A0,1,V0)&votes(A2,1,V1)) | (votes(A0,1,V1)
+    &votes(A2,1,V0)) | (votes(A1,0,V0)&votes(A1,0,V1)) | (votes(A1,1,V0)
+    &votes(A2,1,V1)) | (votes(A1,1,V1)&votes(A2,1,V0)) | (maxBal(A2)=-1
+    &maxBal(A2)=0) | (maxBal(A0)=-1&maxBal(A0)=1) | (votes(A2,1,V0)
+    &votes(A2,1,V1));
 
-notR = 
-	(!maxBal(A1)=0 & !maxBal(A1)=1 & maxBal(A2)=-1 & votes(A0,0,V0)) | 
-	(!maxBal(A1)=0 & !maxBal(A1)=1 & maxBal(A2)=-1 & votes(A0,0,V1)) | 
-	(!maxBal(A0)=0 & !maxBal(A0)=1 & maxBal(A2)=-1 & votes(A1,0,V0)) | 
-	(!maxBal(A0)=0 & !maxBal(A0)=1 & maxBal(A2)=-1 & votes(A1,0,V1)) | 
-	(!maxBal(A0)=0 & !maxBal(A0)=1 & maxBal(A1)=-1 & votes(A2,0,V0)) | 
-	(!maxBal(A0)=0 & !maxBal(A0)=1 & maxBal(A1)=-1 & votes(A2,0,V1)) | 
-
-	(!maxBal(A1)=1 & !maxBal(A2)=1 & votes(A0,1,V0)) | 
-	(!maxBal(A1)=1 & !maxBal(A2)=1 & votes(A0,1,V1)) | 
-	(!maxBal(A0)=1 & !maxBal(A2)=1 & votes(A1,1,V0)) | 
-	(!maxBal(A0)=1 & !maxBal(A2)=1 & votes(A1,1,V1)) | 
-	(!maxBal(A0)=1 & !maxBal(A1)=1 & votes(A2,1,V0)) | 
-	(!maxBal(A0)=1 & !maxBal(A1)=1 & votes(A2,1,V1)) | 
-
-	(maxBal(A2)=-1 & votes(A2,0,V0)) | 
-	(maxBal(A2)=-1 & votes(A2,0,V1)) | 
-	(maxBal(A1)=-1 & votes(A1,0,V0)) | 
-	(maxBal(A0)=-1 & votes(A0,0,V0)) | 
-	(maxBal(A1)=-1 & votes(A1,0,V1)) | 
-	(maxBal(A0)=-1 & votes(A0,0,V1)) | 
-
-	(!maxBal(A2)=1 & votes(A2,1,V0)) | 
-	(!maxBal(A1)=1 & votes(A1,1,V0)) | 
-	(!maxBal(A0)=1 & votes(A0,1,V0)) | 
-	(!maxBal(A2)=1 & votes(A2,1,V1)) | 
-	(!maxBal(A1)=1 & votes(A1,1,V1)) | 
-	(!maxBal(A0)=1 & votes(A0,1,V1)) | 
-
-	(!maxBal(A1)=-1 & !maxBal(A1)=0 & !maxBal(A1)=1) | 
-	(!maxBal(A0)=-1 & !maxBal(A0)=0 & !maxBal(A0)=1) | 
-	(!maxBal(A2)=-1 & !maxBal(A2)=0 & !maxBal(A2)=1) | 
-
-	(maxBal(A2)=-1 & maxBal(A2)=1) | 
-	(maxBal(A1)=0 & maxBal(A1)=1) | 
-	(maxBal(A0)=0 & maxBal(A0)=1) | 
-	(maxBal(A1)=-1 & maxBal(A1)=1) | 
-	(maxBal(A1)=-1 & maxBal(A1)=0) | 
-	(maxBal(A0)=-1 & maxBal(A0)=0) | 
-	(maxBal(A2)=0 & maxBal(A2)=1) | 
-	(maxBal(A2)=-1 & maxBal(A2)=0) | 
-	(maxBal(A0)=-1 & maxBal(A0)=1) | 
-
-	(votes(A0,1,V0) & votes(A0,1,V1)) | 
-	(votes(A0,1,V0) & votes(A1,1,V1)) | 
-	(votes(A0,1,V1) & votes(A1,1,V0)) | 
-	(votes(A1,1,V0) & votes(A1,1,V1)) | 
-	(votes(A0,0,V0) & votes(A0,0,V1)) | 
-	(votes(A0,0,V0) & votes(A2,0,V1)) | 
-	(votes(A0,0,V1) & votes(A2,0,V0)) | 
-	(votes(A2,0,V0) & votes(A2,0,V1)) | 
-	(votes(A0,0,V0) & votes(A1,0,V1)) | 
-	(votes(A0,0,V1) & votes(A1,0,V0)) | 
-	(votes(A1,0,V0) & votes(A2,0,V1)) | 
-	(votes(A1,0,V1) & votes(A2,0,V0)) | 
-	(votes(A0,1,V0) & votes(A2,1,V1)) | 
-	(votes(A0,1,V1) & votes(A2,1,V0)) | 
-	(votes(A1,0,V0) & votes(A1,0,V1)) | 
-	(votes(A1,1,V0) & votes(A2,1,V1)) | 
-	(votes(A1,1,V1) & votes(A2,1,V0)) | 
-	(votes(A2,1,V0) & votes(A2,1,V1))
-;

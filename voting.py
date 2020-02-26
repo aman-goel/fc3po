@@ -4,7 +4,7 @@ import copy
 
 numA = 3
 numV = 2
-numB = 1
+numB = 2
 numQ = numA
 
 NONE = 0
