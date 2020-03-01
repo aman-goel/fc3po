@@ -115,7 +115,7 @@ class State():
                 res += "maxVBal(A%d)=%d " % (a, b)
         res += " "
         for a in range(numA):
-            for v in range(NONE, numB):
+            for v in range(NONE, numV):
                 res += "maxVal(A%d)=%s " % (a, str(v) if v != None else "None")
         res += " "
         for b in range(numB):
