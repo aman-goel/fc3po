@@ -326,7 +326,7 @@ class System():
         fprint(".e")
         fprint("")
         print("Now run espresso with the following command:")
-        print("./espresso/espresso.linux -o eqntott %s.pla > %s.txt" % (outFile, outFile))
+        print("./espresso/espresso.linux -o eqntott pla/%s.pla > txt/%s.txt" % (outFile, outFile))
             
 
 def main():
