@@ -308,7 +308,7 @@ class System():
     def print_R_espresso(self):
         global outF, outFile
         outFile = "paxos_%dA_%dB_%dV.pla" % (numA, numB, numV)
-        outF = open(outFile, 'w')
+        outF = open("pla/"+outFile, 'w')
 
         fprint("# paxos: %d acceptors, %d values, %d ballots" % (numA, numV, numB))
         fprint(".i %d" % (numA * (2*(numB+1)+(numV+1)) + numB + numA*numB*(numB+1)*(numV+1) + numB*numV + numA*numB*numV))

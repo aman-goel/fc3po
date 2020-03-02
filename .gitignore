@@ -131,3 +131,5 @@ dmypy.json
 *.pla
 *.project
 *.pydevproject
+pla/*
+txt/*

@@ -2,7 +2,7 @@
 from __future__ import print_function
 import copy
 
-numA = 3
+numA = 4
 numV = 2
 numB = 2
 numQ = numA
@@ -45,10 +45,16 @@ class State():
         self.member = [[False for j in range(numQ)] for i in range(numA)]
         self.member[0][0] = True
         self.member[1][0] = True
+        self.member[2][0] = True
         self.member[0][1] = True
-        self.member[2][1] = True
-        self.member[1][2] = True
+        self.member[1][1] = True
+        self.member[3][1] = True
+        self.member[0][2] = True
         self.member[2][2] = True
+        self.member[3][2] = True
+        self.member[1][3] = True
+        self.member[2][3] = True
+        self.member[3][3] = True
     
     def str(self, prefix="\t"):
         res = ""
@@ -193,7 +199,7 @@ class System():
     def print_R_espresso(self):
         global outF, outFile
         outFile = "out_%dA_%dB_%dV" % (numA, numB, numV)
-        outF = open(outFile+".pla", 'w')
+        outF = open("pla/"+outFile+".pla", 'w')
         
         fprint("# voting: %d acceptors, %d values, %d ballots" % (numA, numV, numB))
         fprint(".i %d" % (numA*(numB+1) + numA*numB*numV))
@@ -206,7 +212,7 @@ class System():
         fprint(".e")
         fprint("")
         print("Now run espresso with the following command:")
-        print("./espresso/espresso.linux -o eqntott %s.pla > %s.txt" % (outFile, outFile))
+        print("./espresso/espresso.linux -o eqntott pla/%s.pla > txt/%s.txt" % (outFile, outFile))
             
 
 def main():
@@ -217,6 +223,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-   
-                        
