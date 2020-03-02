@@ -2,12 +2,16 @@
 from __future__ import print_function
 import copy
 
-numA = 4
+numA = 3
 numV = 2
 numB = 2
 numQ = numA
 
 NONE = 0
+
+addMember = False
+addNegone = False
+addGE = True
 
 outFile = "out"
 outF = None
@@ -29,7 +33,7 @@ class State():
         self.member = copy.deepcopy(state.member)
 
     def __key(self):
-        return (str(self.maxBal), str(self.votes))
+        return (str(self.maxBal), str(self.votes), str(self.member))
 
     def __hash__(self):
         return hash(self.__key())
@@ -37,7 +41,8 @@ class State():
     def __eq__(self, other):
         return (self.__class__ == other.__class__ and
                 self.maxBal == other.maxBal and
-                self.votes == other.votes)
+                self.votes == other.votes and
+                self.member == other.member)
 
     def reset(self):
         self.maxBal = [-1 for i in range(numA)]
@@ -45,19 +50,30 @@ class State():
         self.member = [[False for j in range(numQ)] for i in range(numA)]
         self.member[0][0] = True
         self.member[1][0] = True
-        self.member[2][0] = True
         self.member[0][1] = True
-        self.member[1][1] = True
-        self.member[3][1] = True
-        self.member[0][2] = True
+        self.member[2][1] = True
+        self.member[1][2] = True
         self.member[2][2] = True
-        self.member[3][2] = True
-        self.member[1][3] = True
-        self.member[2][3] = True
-        self.member[3][3] = True
+    
+    def update_member(self, memberSet):
+        for a in range(numA):
+            for q in range(numQ):
+                if (a, q) in memberSet:
+                    self.member[a][q] = True
+                else:
+                    self.member[a][q] = False
+                    
     
     def str(self, prefix="\t"):
         res = ""
+        res += prefix + "member: "
+        for q in range(numQ):
+            res += "Q" + str(q) + ": {"
+            for a in range(numA):
+                if self.member[a][q]:
+                    res += " A" + str(a)
+            res += "}\t"
+        res += "\n"
         res += prefix + "maxBal: "
         for i in range(numA):
             if (self.maxBal[i] != -1):
@@ -74,8 +90,14 @@ class State():
     
     def str_header_espresso(self):
         res = ""
+        if addMember:
+            for a in range(numA):
+                for q in range(numQ):
+                    res += "member(A%d,Q%d) " % (a, q)
+            res += " "
         for a in range(numA):
-            for b in range(-1, numB):
+            start = -1 if addNegone else 0
+            for b in range(start, numB):
                 res += "maxBal(A%d)=%d " % (a, b)
         res += " "
         for a in range(numA):
@@ -83,12 +105,32 @@ class State():
                 for v in range(numV):
                     res += "votes(A%d,%d,V%d) " % (a, b, v)
             res += " "
+        if addGE:
+            res += " "
+            for b in range(numB):
+                for q in range(numQ):
+                    res += "GEand(Q%d,%d) " % (q, b)
+                res += " "
+            res += " "
+            for b in range(numB):
+                for q in range(numQ):
+                    res += "GEor(Q%d,%d) " % (q, b)
+                res += " "
         return res
         
     def str_espresso(self):
         res = ""
+        if addMember:
+            for a in range(numA):
+                for q in range(numQ):
+                    if self.member[a][q]:
+                        res += "1"
+                    else:
+                        res += "0"
+            res += " "
         for a in range(numA):
-            for b in range(-1, numB):
+            start = -1 if addNegone else 0
+            for b in range(start, numB):
                 if (self.maxBal[a] == b):
                     res += "1"
                 else:
@@ -102,6 +144,31 @@ class State():
                     else:
                         res += "0"
             res += " "
+        if addGE:
+            res += " "
+            for b in range(numB):
+                for q in range(numQ):
+                    val = True
+                    for a in range(numA):
+                        if self.member[a][q]:
+                            val &= self.maxBal[a] >= b
+                    if val:
+                        res += "1"
+                    else:
+                        res += "0"
+                res += " "
+            res += " "
+            for b in range(numB):
+                for q in range(numQ):
+                    val = False
+                    for a in range(numA):
+                        if self.member[a][q]:
+                            val |= self.maxBal[a] >= b
+                    if val:
+                        res += "1"
+                    else:
+                        res += "0"
+                res += " "
         return res
         
 
@@ -165,9 +232,45 @@ class System():
     
     def forwardReach(self):
         q = []
-        init_state = State()
-        q.append(init_state)
+
         print("adding init")
+        init_state = State()
+        init_state.update_member(set([(0, 0), (1, 0),
+                                      (0, 1), (2, 1),
+                                      (1, 2), (2, 2)]))
+        q.append(init_state)
+        
+#         init_state = State()
+#         init_state.update_member(set([(0, 0), (1, 0),
+#                                       (0, 2), (2, 2),
+#                                       (1, 1), (2, 1)]))
+#         q.append(init_state)
+#         
+#         init_state = State()
+#         init_state.update_member(set([(0, 1), (1, 1),
+#                                       (0, 2), (2, 2),
+#                                       (1, 0), (2, 0)]))
+#         q.append(init_state)
+#         
+#         init_state = State()
+#         init_state.update_member(set([(0, 1), (1, 1),
+#                                       (0, 0), (2, 0),
+#                                       (1, 2), (2, 2)]))
+#         q.append(init_state)
+#         
+#         init_state = State()
+#         init_state.update_member(set([(0, 2), (1, 2),
+#                                       (0, 0), (2, 0),
+#                                       (1, 1), (2, 1)]))
+#         q.append(init_state)
+#         
+#         init_state = State()
+#         init_state.update_member(set([(0, 2), (1, 2),
+#                                       (0, 1), (2, 1),
+#                                       (1, 0), (2, 0)]))
+#         q.append(init_state)
+#         for s in q:
+#             print(s.str())
         
         count = 0
         while len(q) != 0:
@@ -199,10 +302,21 @@ class System():
     def print_R_espresso(self):
         global outF, outFile
         outFile = "out_%dA_%dB_%dV" % (numA, numB, numV)
-        outF = open("pla/"+outFile+".pla", 'w')
         
+        numCol = numA*numB + numA*numB*numV
+        if addMember:
+            outFile += "_m"
+            numCol += numA*numQ
+        if addNegone:
+            outFile += "_n"
+            numCol += numA
+        if addGE:
+            outFile += "_g"
+            numCol += numQ*numB*2
+
+        outF = open("pla/"+outFile+".pla", 'w')
         fprint("# voting: %d acceptors, %d values, %d ballots" % (numA, numV, numB))
-        fprint(".i %d" % (numA*(numB+1) + numA*numB*numV))
+        fprint(".i %d" % numCol)
         fprint(".o 1")
         fprint(".ilb %s" % next(iter(self.R)).str_header_espresso())
         fprint(".ob notR")
@@ -212,7 +326,7 @@ class System():
         fprint(".e")
         fprint("")
         print("Now run espresso with the following command:")
-        print("./espresso/espresso.linux -o eqntott pla/%s.pla > txt/%s.txt" % (outFile, outFile))
+        print("./espresso/espresso.linux -o eqntott %s.pla > %s.txt" % (outFile, outFile))
             
 
 def main():
