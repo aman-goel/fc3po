@@ -2,9 +2,10 @@
 from __future__ import print_function
 import copy
 import operator
+import os
 
 numN = 2
-numE = 3
+numE = 4
 
 outFile = "out"
 outF = None
@@ -246,9 +247,16 @@ class System():
             fprint(state.str_espresso() + " 1")
         fprint(".e")
         fprint("")
-        print("Now run espresso with the following command:")
-        print("./espresso/espresso.linux -D exact -o eqntott pla/%s.pla > txt/%s.txt" % (outFile, outFile))
-            
+        outF.close()
+        
+        print("Running espresso:")
+#         cmd = "./espresso/espresso.linux -D exact -o eqntott pla/%s.pla" % (outFile)
+        cmd = "./espresso/espresso.linux -o eqntott pla/%s.pla" % (outFile)
+        print(cmd)
+        os.system(cmd + " > espresso.txt")
+        cmd = "cat espresso.txt | ./pp.sh > txt/%s.txt" % outFile
+        os.system(cmd)
+        print("Output generated in txt/%s.txt" % outFile)
 
 def main():
     s = System()

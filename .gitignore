@@ -133,3 +133,4 @@ dmypy.json
 *.pydevproject
 pla/*
 txt/*
+espresso.txt
