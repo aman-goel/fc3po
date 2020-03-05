@@ -142,7 +142,8 @@ class System():
 
     def forwardReach(self):
         q = []
-        for owner_list in list(product([None] + range(numN), repeat=numK)):
+        possible_owners = ([None] + range(numN)) if lost_keys else range(numN)
+        for owner_list in list(product(possible_owners, repeat=numK)):
             q.append(State(owner_list))
         print("adding init")
 
@@ -184,7 +185,7 @@ class System():
         outFile = "kv.pla"
         outF = open(outFile, 'w')
 
-        fprint("# kv_%dN_%dK_%dV" % (numN, numK, numV))
+        fprint("# kv_%dN_%dK_%dV%s" % (numN, numK, numV, "" if lost_keys else "_nlk"))
         fprint(".i %d" % (numN * numK * (1 + 2* numV)))
         fprint(".o 1")
         fprint(".ilb %s" % next(iter(self.R)).str_header_espresso())
