@@ -1,35 +1,53 @@
 # voting: 3 acceptors, 2 values, 2 ballots
-notR = (!maxBal(A1)=0&!maxBal(A1)=1&maxBal(A2)=-1&votes(A0,0,V0)) | (
-    !maxBal(A1)=0&!maxBal(A1)=1&maxBal(A2)=-1&votes(A0,0,V1)) | (
-    !maxBal(A0)=0&!maxBal(A0)=1&maxBal(A2)=-1&votes(A1,0,V0)) | (
-    !maxBal(A0)=0&!maxBal(A0)=1&maxBal(A2)=-1&votes(A1,0,V1)) | (
-    !maxBal(A0)=0&!maxBal(A0)=1&maxBal(A1)=-1&votes(A2,0,V0)) | (
-    !maxBal(A0)=0&!maxBal(A0)=1&maxBal(A1)=-1&votes(A2,0,V1)) | (
-    !maxBal(A1)=1&!maxBal(A2)=1&votes(A0,1,V0)) | (!maxBal(A1)=1
-    &!maxBal(A2)=1&votes(A0,1,V1)) | (!maxBal(A0)=1&!maxBal(A2)=1
-    &votes(A1,1,V0)) | (!maxBal(A0)=1&!maxBal(A2)=1&votes(A1,1,V1)) | (
-    !maxBal(A0)=1&!maxBal(A1)=1&votes(A2,1,V0)) | (!maxBal(A0)=1
-    &!maxBal(A1)=1&votes(A2,1,V1)) | (maxBal(A2)=-1&votes(A2,0,V0)) | (
-    maxBal(A2)=-1&votes(A2,0,V1)) | (maxBal(A1)=-1&votes(A1,0,V0)) | (
-    maxBal(A0)=-1&votes(A0,0,V0)) | (maxBal(A1)=-1&votes(A1,0,V1)) | (
-    maxBal(A0)=-1&votes(A0,0,V1)) | (!maxBal(A2)=1&votes(A2,1,V0)) | (
-    !maxBal(A1)=1&votes(A1,1,V0)) | (!maxBal(A0)=1&votes(A0,1,V0)) | (
-    !maxBal(A2)=1&votes(A2,1,V1)) | (!maxBal(A1)=1&votes(A1,1,V1)) | (
-    !maxBal(A0)=1&votes(A0,1,V1)) | (!maxBal(A1)=-1&!maxBal(A1)=0
-    &!maxBal(A1)=1) | (!maxBal(A0)=-1&!maxBal(A0)=0&!maxBal(A0)=1) | (
-    !maxBal(A2)=-1&!maxBal(A2)=0&!maxBal(A2)=1) | (maxBal(A2)=-1
-    &maxBal(A2)=1) | (maxBal(A1)=0&maxBal(A1)=1) | (votes(A0,1,V0)
-    &votes(A0,1,V1)) | (votes(A0,1,V0)&votes(A1,1,V1)) | (votes(A0,1,V1)
-    &votes(A1,1,V0)) | (maxBal(A0)=0&maxBal(A0)=1) | (maxBal(A1)=-1
-    &maxBal(A1)=1) | (votes(A1,1,V0)&votes(A1,1,V1)) | (votes(A0,0,V0)
-    &votes(A0,0,V1)) | (maxBal(A1)=-1&maxBal(A1)=0) | (votes(A0,0,V0)
-    &votes(A2,0,V1)) | (votes(A0,0,V1)&votes(A2,0,V0)) | (votes(A2,0,V0)
-    &votes(A2,0,V1)) | (maxBal(A0)=-1&maxBal(A0)=0) | (votes(A0,0,V0)
-    &votes(A1,0,V1)) | (votes(A0,0,V1)&votes(A1,0,V0)) | (votes(A1,0,V0)
-    &votes(A2,0,V1)) | (votes(A1,0,V1)&votes(A2,0,V0)) | (maxBal(A2)=0
-    &maxBal(A2)=1) | (votes(A0,1,V0)&votes(A2,1,V1)) | (votes(A0,1,V1)
-    &votes(A2,1,V0)) | (votes(A1,0,V0)&votes(A1,0,V1)) | (votes(A1,1,V0)
-    &votes(A2,1,V1)) | (votes(A1,1,V1)&votes(A2,1,V0)) | (maxBal(A2)=-1
-    &maxBal(A2)=0) | (maxBal(A0)=-1&maxBal(A0)=1) | (votes(A2,1,V0)
-    &votes(A2,1,V1));
-
+.i 18
+.o 1
+.ilb maxBal(A0)=0 maxBal(A0)=1 maxBal(A1)=0 maxBal(A1)=1 maxBal(A2)=0 maxBal(A2)=1 votes(A0,0,V0) votes(A0,0,V1) votes(A0,1,V0) votes(A0,1,V1) votes(A1,0,V0) votes(A1,0,V1) votes(A1,1,V0) votes(A1,1,V1) votes(A2,0,V0) votes(A2,0,V1) votes(A2,1,V0) votes(A2,1,V1)
+.ob notR
+#.phase 0
+.p 45
+-----0-----------1 1
+-----0----------1- 1
+--0000-1---------- 1
+--00001----------- 1
+-0-0-------------1 1
+-0-0------------1- 1
+00--00-----1------ 1
+00--00----1------- 1
+0000-----------1-- 1
+0000----------1--- 1
+---0---------1---- 1
+---0--------1----- 1
+----00---------1-- 1
+----00--------1--- 1
+--00-------1------ 1
+--00------1------- 1
+00-----1---------- 1
+00----1----------- 1
+---0-0---1-------- 1
+---0-0--1--------- 1
+-0---0-------1---- 1
+-0---0------1----- 1
+--------11-------- 1
+--11-------------- 1
+--------1----1---- 1
+---------1--1----- 1
+--------------11-- 1
+------1--------1-- 1
+-------1------1--- 1
+------------11---- 1
+------11---------- 1
+11---------------- 1
+----------1----1-- 1
+-----------1--1--- 1
+------1----1------ 1
+-------1--1------- 1
+----------11------ 1
+----11------------ 1
+--------1--------1 1
+---------1------1- 1
+------------1----1 1
+-------------1--1- 1
+-0-------1-------- 1
+-0------1--------- 1
+----------------11 1
+.e

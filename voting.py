@@ -11,7 +11,7 @@ NONE = 0
 
 addMember = False
 addNegone = False
-addGE = True
+addGE = False
 
 outFile = "out"
 outF = None

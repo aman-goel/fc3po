@@ -1,187 +1,50 @@
-# toy lock: 2 nodes, 4 epochs
-notR = (held(N1)&!ep(N1)=E0&!ep(N1)=E1&!ep(N1)=E2&le(E3,E0)&le(E3,E1)
-    &le(E3,E2)) | (!held(N1)&!ep(N0)=E0&!ep(N0)=E1&!ep(N0)=E2
-    &!transfer(E0,N0)&!transfer(E0,N1)&!transfer(E1,N0)&!transfer(E1,N1)
-    &!transfer(E2,N0)&!transfer(E2,N1)&le(E3,E0)&le(E3,E1)&le(E3,E2)) | (
-    !held(N0)&!held(N1)&!transfer(E0,N0)&!transfer(E0,N1)&!transfer(E1,N0)
-    &!transfer(E1,N1)&le(E3,E0)&le(E3,E1)&!le(E3,E2)) | (!held(N1)
-    &!ep(N0)=E1&!ep(N0)=E2&!ep(N0)=E3&!transfer(E1,N0)&!transfer(E1,N1)
-    &!transfer(E2,N0)&!transfer(E2,N1)&!transfer(E3,N0)&!transfer(E3,N1)
-    &!le(E1,E0)&!le(E2,E0)&!le(E3,E0)) | (!held(N0)&!ep(N1)=E0&!ep(N1)=E2
-    &!ep(N1)=E3&!transfer(E0,N0)&!transfer(E0,N1)&!transfer(E2,N0)
-    &!transfer(E2,N1)&!transfer(E3,N0)&!transfer(E3,N1)&le(E1,E0)
-    &!le(E2,E1)&!le(E3,E1)) | (!held(N1)&!ep(N0)=E0&!ep(N0)=E2&!ep(N0)=E3
-    &!transfer(E0,N0)&!transfer(E0,N1)&!transfer(E2,N0)&!transfer(E2,N1)
-    &!transfer(E3,N0)&!transfer(E3,N1)&le(E1,E0)&!le(E2,E1)&!le(E3,E1)) | (
-    held(N1)&!ep(N1)=E0&!ep(N1)=E1&!ep(N1)=E3&le(E2,E0)&le(E2,E1)
-    &!le(E3,E2)) | (!held(N1)&!ep(N0)=E0&!ep(N0)=E1&!ep(N0)=E3
-    &!transfer(E0,N0)&!transfer(E0,N1)&!transfer(E1,N0)&!transfer(E1,N1)
-    &!transfer(E3,N0)&!transfer(E3,N1)&le(E2,E0)&le(E2,E1)&!le(E3,E2)) | (
-    !held(N0)&!held(N1)&!ep(N0)=E0&!ep(N1)=E0&!transfer(E3,N0)
-    &!transfer(E3,N1)&!le(E2,E0)&!le(E3,E1)&!le(E3,E2)) | (!held(N0)
-    &!held(N1)&!ep(N0)=E0&!ep(N1)=E0&!transfer(E1,N0)&!transfer(E1,N1)
-    &!le(E2,E0)&le(E2,E1)&le(E3,E2)) | (!held(N0)&!held(N1)
-    &!transfer(E0,N0)&!transfer(E0,N1)&!transfer(E3,N0)&!transfer(E3,N1)
-    &le(E1,E0)&le(E2,E0)&!le(E3,E1)&!le(E3,E2)) | (!held(N1)&!ep(N1)=E0
-    &!ep(N1)=E2&!transfer(E1,N0)&!transfer(E1,N1)&!locked(E1,N0)
-    &!le(E3,E0)&le(E3,E1)&!le(E3,E2)) | (!held(N1)&!ep(N1)=E1&!ep(N1)=E2
-    &!transfer(E0,N0)&!transfer(E0,N1)&!locked(E0,N0)&le(E3,E0)&!le(E3,E1)
-    &!le(E3,E2)) | (!held(N0)&!ep(N0)=E0&!ep(N0)=E2&!transfer(E1,N0)
-    &!transfer(E1,N1)&!locked(E1,N1)&!le(E3,E0)&le(E3,E1)&!le(E3,E2)) | (
-    !held(N0)&!ep(N0)=E1&!ep(N0)=E2&!transfer(E0,N0)&!transfer(E0,N1)
-    &!locked(E0,N1)&le(E3,E0)&!le(E3,E1)&!le(E3,E2)) | (!held(N0)
-    &!ep(N0)=E2&!ep(N0)=E3&!transfer(E1,N0)&!transfer(E1,N1)
-    &!locked(E1,N1)&!le(E1,E0)&le(E2,E0)&le(E3,E0)) | (held(N0)&!ep(N1)=E0
-    &!ep(N1)=E1&!locked(E1,N0)&!locked(E2,N0)&!locked(E3,N0)&!le(E2,E0)
-    &!le(E3,E0)) | (!held(N0)&!held(N1)&!ep(N0)=E0&!ep(N1)=E0
-    &!transfer(E2,N0)&!transfer(E2,N1)&!le(E2,E1)&!le(E3,E0)&le(E3,E2)) | (
-    !held(N0)&!held(N1)&!ep(N0)=E2&!ep(N1)=E2&!transfer(E1,N0)
-    &!transfer(E1,N1)&!transfer(E2,N0)&!transfer(E2,N1)&!le(E1,E0)
-    &le(E3,E1)) | (!held(N1)&!ep(N1)=E1&!ep(N1)=E2&!transfer(E3,N0)
-    &!transfer(E3,N1)&!locked(E3,N0)&le(E1,E0)&le(E2,E0)&!le(E3,E0)) | (
-    !held(N1)&!ep(N1)=E1&!ep(N1)=E3&!transfer(E2,N0)&!transfer(E2,N1)
-    &!locked(E2,N0)&le(E1,E0)&!le(E2,E0)&le(E3,E0)) | (!held(N0)
-    &!ep(N0)=E1&!ep(N0)=E2&!transfer(E3,N0)&!transfer(E3,N1)
-    &!locked(E3,N1)&le(E1,E0)&le(E2,E0)&!le(E3,E0)) | (!held(N0)
-    &!ep(N0)=E1&!ep(N0)=E3&!transfer(E2,N0)&!transfer(E2,N1)
-    &!locked(E2,N1)&le(E1,E0)&!le(E2,E0)&le(E3,E0)) | (!held(N1)
-    &!ep(N1)=E2&!ep(N1)=E3&!transfer(E1,N0)&!transfer(E1,N1)
-    &!locked(E1,N0)&!le(E1,E0)&le(E2,E0)&le(E3,E0)) | (!held(N0)&!held(N1)
-    &!transfer(E2,N0)&!transfer(E2,N1)&!transfer(E3,N0)&!transfer(E3,N1)
-    &!le(E2,E0)&!le(E2,E1)&!le(E3,E0)&!le(E3,E1)) | (!held(N0)&!held(N1)
-    &!transfer(E0,N0)&!transfer(E0,N1)&!transfer(E2,N0)&!transfer(E2,N1)
-    &le(E1,E0)&!le(E2,E1)&le(E3,E0)&le(E3,E2)) | (held(N1)&!ep(N0)=E0
-    &!ep(N0)=E1&!locked(E1,N1)&!locked(E2,N1)&!locked(E3,N1)&!le(E2,E0)
-    &!le(E3,E0)) | (!held(N1)&ep(N1)=E2&!transfer(E0,N0)&!transfer(E0,N1)
-    &!transfer(E1,N0)&!transfer(E1,N1)&!locked(E0,N0)&!locked(E1,N0)
-    &le(E3,E2)) | (!held(N0)&ep(N0)=E2&!transfer(E0,N0)&!transfer(E0,N1)
-    &!transfer(E1,N0)&!transfer(E1,N1)&!locked(E0,N1)&!locked(E1,N1)
-    &le(E3,E2)) | (!ep(N0)=E0&!ep(N1)=E0&!locked(E1,N0)&!locked(E1,N1)
-    &!locked(E2,N0)&!locked(E2,N1)&!locked(E3,N0)&!locked(E3,N1)
-    &!le(E1,E0)&!le(E2,E0)&!le(E3,E0)) | (!ep(N0)=E3&!ep(N1)=E3
-    &!locked(E0,N0)&!locked(E0,N1)&!locked(E1,N0)&!locked(E1,N1)
-    &!locked(E2,N0)&!locked(E2,N1)&le(E3,E0)&le(E3,E1)&le(E3,E2)) | (
-    !held(N0)&!ep(N0)=E2&!ep(N0)=E3&!ep(N1)=E1&!ep(N1)=E2&!ep(N1)=E3
-    &!transfer(E2,N0)&!transfer(E2,N1)&!transfer(E3,N0)&!transfer(E3,N1)
-    &!le(E1,E0)) | (!ep(N0)=E1&!ep(N1)=E1&!locked(E0,N0)&!locked(E0,N1)
-    &!locked(E2,N0)&!locked(E2,N1)&!locked(E3,N0)&!locked(E3,N1)
-    &le(E1,E0)&!le(E2,E1)&!le(E3,E1)) | (!ep(N0)=E2&!ep(N1)=E2
-    &!locked(E0,N0)&!locked(E0,N1)&!locked(E1,N0)&!locked(E1,N1)
-    &!locked(E3,N0)&!locked(E3,N1)&le(E2,E0)&le(E2,E1)&!le(E3,E2)) | (
-    !ep(N0)=E0&!ep(N0)=E1&!ep(N0)=E3&ep(N1)=E2) | (!ep(N0)=E0&!ep(N0)=E2
-    &!ep(N0)=E3&ep(N1)=E1) | (!held(N0)&!held(N1)&!ep(N0)=E1&!ep(N0)=E2
-    &!ep(N1)=E1&!ep(N1)=E2&!transfer(E2,N0)&!transfer(E2,N1)&!le(E3,E1)) | (
-    locked(E0,N0)&!le(E1,E0)&!le(E2,E0)) | (locked(E0,N0)&!le(E1,E0)
-    &!le(E3,E0)) | (locked(E1,N0)&le(E1,E0)&!le(E2,E1)) | (locked(E3,N0)
-    &le(E3,E0)&le(E3,E2)) | (locked(E2,N0)&le(E2,E0)&le(E2,E1)) | (
-    locked(E1,N0)&le(E1,E0)&!le(E3,E1)) | (locked(E2,N0)&le(E2,E0)
-    &!le(E3,E2)) | (locked(E3,N0)&le(E3,E0)&le(E3,E1)) | (ep(N0)=E1
-    &locked(E1,N1)) | (ep(N0)=E2&locked(E2,N1)) | (ep(N0)=E3
-    &locked(E3,N1)) | (ep(N1)=E1&locked(E1,N0)) | (!ep(N0)=E1&!ep(N0)=E2
-    &!ep(N0)=E3&locked(E0,N1)) | (ep(N1)=E2&locked(E2,N0)) | (ep(N1)=E3
-    &locked(E3,N0)) | (!ep(N1)=E1&!ep(N1)=E2&!ep(N1)=E3&locked(E0,N0)) | (
-    !ep(N0)=E0&!ep(N0)=E1&!ep(N0)=E2&ep(N1)=E3) | (locked(E0,N1)
-    &!le(E1,E0)&!le(E2,E0)) | (locked(E0,N1)&!le(E1,E0)&!le(E3,E0)) | (
-    locked(E1,N1)&le(E1,E0)&!le(E2,E1)) | (locked(E1,N1)&le(E1,E0)
-    &!le(E3,E1)) | (locked(E3,N1)&le(E3,E0)&le(E3,E2)) | (locked(E3,N1)
-    &le(E3,E0)&le(E3,E1)) | (locked(E2,N1)&le(E2,E0)&le(E2,E1)) | (
-    locked(E2,N1)&le(E2,E0)&!le(E3,E2)) | (!held(N1)&ep(N1)=E1
-    &!transfer(E2,N0)&!transfer(E2,N1)&!locked(E2,N0)&!le(E1,E0)
-    &le(E3,E1)) | (!held(N0)&ep(N0)=E1&!transfer(E2,N0)&!transfer(E2,N1)
-    &!locked(E2,N1)&!le(E1,E0)&le(E3,E1)) | (!held(N0)&!held(N1)
-    &!ep(N0)=E1&!ep(N0)=E3&!ep(N1)=E1&!ep(N1)=E3&!transfer(E1,N0)
-    &!transfer(E1,N1)&!transfer(E3,N0)&!transfer(E3,N1)) | (
-    transfer(E1,N0)&transfer(E2,N0)&!locked(E2,N0)&le(E2,E1)) | (
-    transfer(E1,N1)&transfer(E2,N0)&!locked(E2,N0)&le(E2,E1)) | (
-    transfer(E1,N0)&transfer(E2,N1)&!locked(E2,N1)&le(E2,E1)) | (
-    transfer(E1,N1)&transfer(E2,N1)&!locked(E2,N1)&le(E2,E1)) | (
-    !held(N1)&!ep(N1)=E0&!ep(N1)=E2&!ep(N1)=E3&!transfer(E0,N0)
-    &!transfer(E0,N1)&!locked(E0,N0)&le(E2,E1)&le(E3,E1)) | (!held(N0)
-    &!ep(N0)=E0&!ep(N0)=E2&!ep(N0)=E3&!transfer(E0,N0)&!transfer(E0,N1)
-    &!locked(E0,N1)&le(E2,E1)&le(E3,E1)) | (!held(N1)&!ep(N1)=E0
-    &!ep(N1)=E2&!ep(N1)=E3&!transfer(E3,N0)&!transfer(E3,N1)
-    &!locked(E3,N0)&!le(E1,E0)&le(E2,E1)) | (!held(N0)&!ep(N0)=E0
-    &!ep(N0)=E2&!ep(N0)=E3&!transfer(E3,N0)&!transfer(E3,N1)
-    &!locked(E3,N1)&!le(E1,E0)&le(E2,E1)) | (!held(N1)&!ep(N1)=E0
-    &!ep(N1)=E1&!ep(N1)=E3&!le(E2,E0)&!le(E2,E1)&le(E3,E2)) | (!held(N0)
-    &!ep(N0)=E0&!ep(N0)=E1&!ep(N0)=E3&!le(E2,E0)&!le(E2,E1)&le(E3,E2)) | (
-    !held(N1)&!ep(N1)=E0&!ep(N1)=E1&!ep(N1)=E2&!le(E3,E0)&!le(E3,E1)
-    &!le(E3,E2)) | (!held(N0)&!ep(N0)=E0&!ep(N0)=E1&!ep(N0)=E2&!le(E3,E0)
-    &!le(E3,E1)&!le(E3,E2)) | (!held(N1)&!ep(N1)=E1&!ep(N1)=E2&!ep(N1)=E3
-    &le(E1,E0)&le(E2,E0)&le(E3,E0)) | (!held(N0)&!ep(N0)=E1&!ep(N0)=E2
-    &!ep(N0)=E3&le(E1,E0)&le(E2,E0)&le(E3,E0)) | (!ep(N1)=E2
-    &locked(E2,N1)&!le(E2,E0)&!le(E2,E1)&le(E3,E2)) | (!ep(N0)=E2
-    &locked(E2,N0)&!le(E2,E0)&!le(E2,E1)&le(E3,E2)) | (transfer(E1,N0)
-    &transfer(E2,N0)&!locked(E1,N0)&!le(E2,E1)) | (transfer(E1,N0)
-    &transfer(E2,N1)&!locked(E1,N0)&!le(E2,E1)) | (!ep(N0)=E3
-    &locked(E3,N0)&!le(E3,E0)&!le(E3,E1)&!le(E3,E2)) | (transfer(E1,N1)
-    &transfer(E2,N0)&!locked(E1,N1)&!le(E2,E1)) | (transfer(E1,N1)
-    &transfer(E2,N1)&!locked(E1,N1)&!le(E2,E1)) | (!ep(N0)=E0
-    &locked(E0,N0)&le(E1,E0)&le(E2,E0)&le(E3,E0)) | (!ep(N1)=E0
-    &locked(E0,N1)&le(E1,E0)&le(E2,E0)&le(E3,E0)) | (!ep(N1)=E1
-    &locked(E1,N1)&!le(E1,E0)&le(E2,E1)&le(E3,E1)) | (transfer(E0,N0)
-    &transfer(E3,N0)&!locked(E0,N0)&!locked(E3,N0)) | (transfer(E0,N0)
-    &transfer(E2,N0)&!locked(E0,N0)&!locked(E2,N0)) | (transfer(E0,N0)
-    &transfer(E3,N1)&!locked(E0,N0)&!locked(E3,N1)) | (transfer(E0,N1)
-    &transfer(E3,N0)&!locked(E0,N1)&!locked(E3,N0)) | (transfer(E0,N0)
-    &transfer(E2,N1)&!locked(E0,N0)&!locked(E2,N1)) | (transfer(E0,N1)
-    &transfer(E2,N0)&!locked(E0,N1)&!locked(E2,N0)) | (transfer(E0,N1)
-    &transfer(E3,N1)&!locked(E0,N1)&!locked(E3,N1)) | (transfer(E0,N1)
-    &transfer(E2,N1)&!locked(E0,N1)&!locked(E2,N1)) | (transfer(E2,N0)
-    &transfer(E3,N0)&!locked(E2,N0)&!locked(E3,N0)) | (transfer(E0,N0)
-    &transfer(E1,N0)&!locked(E0,N0)&!locked(E1,N0)) | (transfer(E2,N0)
-    &transfer(E3,N1)&!locked(E2,N0)&!locked(E3,N1)) | (transfer(E2,N1)
-    &transfer(E3,N0)&!locked(E2,N1)&!locked(E3,N0)) | (transfer(E0,N0)
-    &transfer(E1,N1)&!locked(E0,N0)&!locked(E1,N1)) | (transfer(E0,N1)
-    &transfer(E1,N0)&!locked(E0,N1)&!locked(E1,N0)) | (transfer(E2,N1)
-    &transfer(E3,N1)&!locked(E2,N1)&!locked(E3,N1)) | (transfer(E0,N1)
-    &transfer(E1,N1)&!locked(E0,N1)&!locked(E1,N1)) | (transfer(E1,N0)
-    &transfer(E3,N0)&!locked(E1,N0)&!locked(E3,N0)) | (transfer(E1,N0)
-    &transfer(E3,N1)&!locked(E1,N0)&!locked(E3,N1)) | (transfer(E1,N1)
-    &transfer(E3,N0)&!locked(E1,N1)&!locked(E3,N0)) | (!ep(N1)=E3
-    &!locked(E2,N1)&locked(E3,N1)&!le(E3,E0)&!le(E3,E1)) | (
-    transfer(E1,N1)&transfer(E3,N1)&!locked(E1,N1)&!locked(E3,N1)) | (
-    !ep(N0)=E1&locked(E1,N0)&!locked(E3,N0)&!le(E1,E0)&le(E2,E1)) | (
-    locked(E0,N0)&!le(E2,E0)&!le(E3,E0)) | (le(E2,E0)&!le(E3,E0)
-    &le(E3,E2)) | (!le(E1,E0)&le(E3,E0)&!le(E3,E1)) | (le(E1,E0)
-    &!le(E3,E0)&le(E3,E1)) | (!le(E2,E0)&le(E3,E0)&!le(E3,E2)) | (
-    !le(E1,E0)&le(E2,E0)&!le(E2,E1)) | (le(E1,E0)&!le(E2,E0)&le(E2,E1)) | (
-    !le(E2,E1)&le(E3,E1)&!le(E3,E2)) | (le(E2,E1)&!le(E3,E1)&le(E3,E2)) | (
-    locked(E3,N0)&le(E3,E1)&le(E3,E2)) | (locked(E1,N0)&!le(E2,E1)
-    &!le(E3,E1)) | (locked(E2,N0)&le(E2,E1)&!le(E3,E2)) | (!ep(N0)=E1
-    &!locked(E0,N0)&locked(E1,N0)&!locked(E2,N0)&le(E3,E1)) | (!ep(N1)=E3
-    &!locked(E0,N1)&!locked(E1,N1)&locked(E3,N1)&!le(E3,E2)) | (
-    locked(E0,N1)&!le(E2,E0)&!le(E3,E0)) | (locked(E3,N1)&le(E3,E1)
-    &le(E3,E2)) | (locked(E1,N1)&!le(E2,E1)&!le(E3,E1)) | (locked(E2,N1)
-    &le(E2,E1)&!le(E3,E2)) | (held(N1)&transfer(E0,N0)&!locked(E0,N0)) | (
-    held(N0)&transfer(E0,N0)&!locked(E0,N0)) | (held(N1)&transfer(E0,N1)
-    &!locked(E0,N1)) | (held(N0)&transfer(E0,N1)&!locked(E0,N1)) | (
-    held(N1)&transfer(E3,N0)&!locked(E3,N0)) | (held(N0)&transfer(E3,N0)
-    &!locked(E3,N0)) | (held(N1)&transfer(E2,N0)&!locked(E2,N0)) | (
-    held(N1)&transfer(E3,N1)&!locked(E3,N1)) | (held(N0)&transfer(E2,N0)
-    &!locked(E2,N0)) | (held(N0)&transfer(E3,N1)&!locked(E3,N1)) | (
-    held(N1)&transfer(E2,N1)&!locked(E2,N1)) | (held(N0)&transfer(E2,N1)
-    &!locked(E2,N1)) | (held(N1)&transfer(E1,N0)&!locked(E1,N0)) | (
-    held(N0)&transfer(E1,N0)&!locked(E1,N0)) | (held(N1)&transfer(E1,N1)
-    &!locked(E1,N1)) | (!ep(N0)=E3&!locked(E0,N0)&!locked(E1,N0)
-    &!locked(E2,N0)&locked(E3,N0)) | (held(N0)&transfer(E1,N1)
-    &!locked(E1,N1)) | (!ep(N0)=E2&!locked(E0,N0)&!locked(E1,N0)
-    &locked(E2,N0)&!locked(E3,N0)) | (!ep(N1)=E1&!locked(E0,N1)
-    &locked(E1,N1)&!locked(E2,N1)&!locked(E3,N1)) | (!ep(N0)=E0
-    &locked(E0,N0)&!locked(E1,N0)&!locked(E2,N0)&!locked(E3,N0)) | (
-    !ep(N1)=E2&!locked(E0,N1)&!locked(E1,N1)&locked(E2,N1)&!locked(E3,N1)) | (
-    !ep(N1)=E0&locked(E0,N1)&!locked(E1,N1)&!locked(E2,N1)&!locked(E3,N1)) | (
-    held(N0)&held(N1)) | (ep(N1)=E2&ep(N1)=E3) | (ep(N1)=E0&ep(N1)=E1) | (
-    transfer(E1,N0)&transfer(E1,N1)) | (transfer(E3,N0)&transfer(E3,N1)) | (
-    transfer(E2,N0)&transfer(E2,N1)) | (ep(N1)=E1&ep(N1)=E3) | (
-    transfer(E0,N0)&transfer(E0,N1)) | (ep(N1)=E1&ep(N1)=E2) | (
-    ep(N1)=E0&ep(N1)=E3) | (ep(N1)=E0&ep(N1)=E2) | (ep(N0)=E2&ep(N0)=E3) | (
-    ep(N0)=E0&ep(N0)=E1) | (ep(N0)=E0&ep(N0)=E3) | (ep(N0)=E1&ep(N0)=E3) | (
-    ep(N0)=E1&ep(N0)=E2) | (ep(N0)=E0&ep(N0)=E2) | (le(E1,E3)&le(E3,E1)) | (
-    !le(E1,E3)&!le(E3,E1)) | (!le(E1,E2)&!le(E2,E1)) | (le(E1,E2)
-    &le(E2,E1)) | (le(E0,E2)&le(E2,E0)) | (le(E0,E3)&le(E3,E0)) | (
-    !le(E0,E2)&!le(E2,E0)) | (!le(E0,E3)&!le(E3,E0)) | (!le(E0,E1)
-    &!le(E1,E0)) | (!le(E2,E3)&!le(E3,E2)) | (le(E2,E3)&le(E3,E2)) | (
-    le(E0,E1)&le(E1,E0)) | (!le(E3,E3)) | (!le(E2,E2)) | (!le(E1,E1)) | (
-    !le(E0,E0));
+# toy lock: 2 nodes, 3 epochs
+notR = (!held(N0)&!held(N1)&!transfer(E0,N0)&!transfer(E0,N1)
+    &!transfer(E1,N0)&!transfer(E1,N1)&le(E2,E1)) | (held(N1)&ep(N0)=E1
+    &!locked(E0,N1)&le(E2,E1)) | (!held(N0)&!ep(N0)=E1&!ep(N0)=E2
+    &!transfer(E1,N0)&!transfer(E1,N1)&!locked(E1,N1)&le(E2,E0)) | (
+    !held(N1)&ep(N1)=E2&!transfer(E1,N0)&!transfer(E1,N1)&!locked(E1,N0)
+    &!le(E2,E0)) | (!held(N1)&!ep(N1)=E1&!ep(N1)=E2&!transfer(E2,N0)
+    &!transfer(E2,N1)&!locked(E2,N0)&le(E1,E0)) | (!ep(N1)=E1
+    &locked(E1,N1)) | (!ep(N0)=E1&locked(E1,N0)) | (!held(N0)&ep(N0)=E2
+    &!transfer(E1,N0)&!transfer(E1,N1)&!locked(E1,N1)&!le(E2,E0)) | (
+    !held(N1)&ep(N1)=E2&!transfer(E0,N0)&!transfer(E0,N1)&!locked(E0,N0)
+    &!le(E2,E1)) | (held(N0)&!ep(N1)=E0&!ep(N1)=E2&!locked(E0,N0)
+    &le(E2,E1)) | (!held(N0)&ep(N0)=E2&!transfer(E0,N0)&!transfer(E0,N1)
+    &!locked(E0,N1)&!le(E2,E1)) | (ep(N0)=E1&transfer(E1,N1)) | (
+    ep(N1)=E1&transfer(E1,N0)) | (held(N0)&!ep(N1)=E1&!ep(N1)=E2
+    &!locked(E1,N0)&le(E2,E0)) | (held(N1)&transfer(E2,N1)&!locked(E2,N1)) | (
+    held(N0)&transfer(E2,N0)&!locked(E2,N0)) | (!ep(N1)=E0&locked(E0,N1)) | (
+    !ep(N0)=E0&locked(E0,N0)) | (!held(N0)&!ep(N0)=E1&!ep(N0)=E2
+    &!transfer(E2,N0)&!transfer(E2,N1)&!locked(E2,N1)&le(E1,E0)) | (
+    !held(N1)&ep(N1)=E1&!transfer(E2,N0)&!transfer(E2,N1)&!locked(E2,N0)
+    &!le(E1,E0)) | (!ep(N0)=E2&locked(E2,N0)) | (transfer(E2,N0)
+    &le(E2,E1)) | (transfer(E2,N1)&le(E2,E1)) | (!ep(N1)=E2&locked(E2,N1)) | (
+    ep(N1)=E1&transfer(E1,N1)&!locked(E1,N1)) | (ep(N0)=E1
+    &transfer(E1,N0)&!locked(E1,N0)) | (held(N1)&transfer(E1,N1)
+    &!locked(E1,N1)) | (locked(E0,N0)&!le(E1,E0)) | (held(N0)&held(N1)) | (
+    held(N0)&transfer(E1,N0)&!locked(E1,N0)) | (!ep(N1)=E1&!ep(N1)=E2
+    &transfer(E0,N0)) | (locked(E1,N0)&le(E1,E0)) | (!ep(N0)=E1&!ep(N0)=E2
+    &transfer(E0,N1)) | (held(N0)&transfer(E0,N0)&!locked(E0,N0)) | (
+    locked(E1,N1)&le(E1,E0)) | (locked(E0,N1)&!le(E1,E0)) | (!held(N0)
+    &!ep(N0)=E0&!ep(N0)=E2&!transfer(E2,N0)&!transfer(E2,N1)
+    &!locked(E2,N1)&!le(E1,E0)) | (held(N1)&transfer(E0,N1)&!locked(E0,N1)) | (
+    ep(N1)=E0&transfer(E0,N1)&!locked(E0,N1)) | (ep(N0)=E0
+    &transfer(E0,N0)&!locked(E0,N0)) | (locked(E2,N0)&le(E2,E1)) | (
+    !ep(N0)=E0&!ep(N0)=E2&!ep(N1)=E0&!ep(N1)=E2) | (locked(E2,N1)
+    &le(E2,E1)) | (transfer(E2,N0)&le(E2,E0)) | (transfer(E2,N1)
+    &le(E2,E0)) | (!ep(N0)=E1&!ep(N0)=E2&!ep(N1)=E1&!ep(N1)=E2) | (
+    !ep(N0)=E0&!ep(N0)=E1&!ep(N1)=E0&!ep(N1)=E1) | (locked(E1,N0)
+    &!le(E2,E1)) | (locked(E2,N0)&le(E2,E0)) | (locked(E0,N0)&!le(E2,E0)) | (
+    locked(E1,N1)&!le(E2,E1)) | (locked(E2,N1)&le(E2,E0)) | (
+    locked(E0,N1)&!le(E2,E0)) | (le(E1,E2)&le(E2,E1)) | (le(E0,E2)
+    &le(E2,E0)) | (!le(E1,E2)&!le(E2,E1)) | (!le(E0,E2)&!le(E2,E0)) | (
+    held(N1)&transfer(E2,N0)) | (ep(N1)=E1&ep(N1)=E2) | (ep(N1)=E0
+    &ep(N1)=E2) | (transfer(E1,N0)&transfer(E1,N1)) | (transfer(E0,N0)
+    &transfer(E0,N1)) | (held(N1)&transfer(E1,N0)) | (held(N1)
+    &transfer(E0,N0)) | (transfer(E2,N0)&transfer(E2,N1)) | (ep(N0)=E1
+    &ep(N0)=E2) | (ep(N0)=E0&ep(N0)=E2) | (held(N0)&transfer(E1,N1)) | (
+    held(N0)&transfer(E0,N1)) | (!le(E0,E1)&!le(E1,E0)) | (le(E0,E1)
+    &le(E1,E0)) | (held(N0)&transfer(E2,N1)) | (ep(N1)=E0&ep(N1)=E1) | (
+    ep(N0)=E0&ep(N0)=E1) | (!le(E2,E2)) | (!le(E1,E1)) | (!le(E0,E0));
 

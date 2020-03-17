@@ -5,7 +5,7 @@ import operator
 import os
 
 numN = 2
-numE = 4
+numE = 3
 
 outFile = "out"
 outF = None
